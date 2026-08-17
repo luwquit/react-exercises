@@ -1,0 +1,35 @@
+body {
+  background-color: rgb(88, 88, 88);
+  margin: 0;
+}
+
+.avatar-image {
+  width: 200px;
+  border-radius: 100px;
+}
+
+.card {
+  border: 1px solid;
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem 0;
+  margin: 1rem;
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .card-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .card-list {
+    grid-template-columns: 1fr;
+  }
+}
