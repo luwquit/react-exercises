@@ -9,7 +9,7 @@ export function TodoApp() {
   const completedTasks = tasks.filter(task => task.done === true);
 
   const addTask = () => {
-    if (inputText !== '') {
+    if (inputText.trim() !== '') {
       const newTask = {
         id: crypto.randomUUID(),
         text: inputText.trim(),
@@ -44,9 +44,10 @@ export function TodoApp() {
     });
     setTasks(newTasks);
   }
+  console.log(tasks)
 
   return (
-    <div>
+    <div className="flex flex-col h-screen items-center py-5">
       <div>
         <h1 className="text-5xl font-bold">Todo App</h1>
         <div className="bg-rose-100 py-4 px-15 w-fit m-auto rounded-2xl border-solid border border-slate-800 mb-7 mt-5 shrink-0">
@@ -55,7 +56,7 @@ export function TodoApp() {
         </div>
         <div>
           <input
-            className="border border-slate-800 border-solid rounded-sm px-2 py-1 text-lg"
+            className="border border-slate-800 border-solid rounded-sm px-2 py-1 text-lg w-sm"
             placeholder="New task"
             ref={inputRef}
             onKeyDown={onKeyDown}
@@ -66,10 +67,10 @@ export function TodoApp() {
         </div>
       </div>
       
-      <div className="mt-5">
-        {tasks.map(task => {
+      <div className="my-5 py-4 overflow-y-auto border rounded-2xl border-slate-800 w-2xl min-h-0 flex flex-col gap-3 scrollbar-thumb-rose-400">
+        {tasks.length !== 0 ? tasks.map(task => {
           return (
-            <div className="flex flex-row justify-between max-w-sm items-center m-auto mb-3 bg-rose-300 rounded-lg py-2 px-4" key={task.id} >
+            <div className="flex flex-row gap-1.5 justify-between w-lg items-center m-auto bg-rose-300 rounded-lg py-2 px-4" key={task.id} >
               <div className={`flex items-center gap-1.5 min-w-0 ${task.done === true ? "opacity-50 first:line-through" : ''}`} onClick={() => handleCheck(task.id)} >
                 <input className="accent-rose-400" type="checkbox" checked={task.done === true} onChange={() => {}} />
                 <label className="text-xl text-left ml-1.5">{task.text}</label>
@@ -77,7 +78,7 @@ export function TodoApp() {
               <button className="bg-rose-100 py-1 px-3 rounded-lg cursor-pointer hover:bg-rose-200 transition-colors shrink-0" onClick={() => deleteTask(task.id)}>delete task</button>
             </div>
           )
-        })}
+        }) : 'try typing your first task above!'}
       </div>
       
     </div>
