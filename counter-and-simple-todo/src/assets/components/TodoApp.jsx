@@ -1,12 +1,17 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { ToggleTheme } from "./ToggleTheme";
 
 export function TodoApp() {
   const inputRef = useRef();
   const [inputText, setInputText] = useState("");
-  const [tasks, setTasks] = useState([]);
-
+  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('todo-tasks')) || []);
+  
   const totalTasks = tasks.filter(task => task.done === false);
   const completedTasks = tasks.filter(task => task.done === true);
+
+  useEffect(() => {
+    localStorage.setItem('todo-tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = () => {
     if (inputText.trim() !== '') {
@@ -44,38 +49,40 @@ export function TodoApp() {
     });
     setTasks(newTasks);
   }
-  console.log(tasks)
+  
+  
 
   return (
     <div className="flex flex-col h-screen items-center py-5">
       <div>
+        <ToggleTheme />
         <h1 className="text-5xl font-bold">Todo App</h1>
-        <div className="bg-rose-100 py-4 px-15 w-fit m-auto rounded-2xl border-solid border border-slate-800 mb-7 mt-5 shrink-0">
+        <div className="bg-rose-100 dark:bg-stone-900 py-4 px-15 w-fit m-auto rounded-2xl border-solid dark:border-stone-950 border mb-7 mt-5 shrink-0">
           <p className="text-xl">Total Tasks: {totalTasks.length}</p>
           <p className="text-xl">Completed tasks: {completedTasks.length}</p>
         </div>
         <div>
           <input
-            className="border border-slate-800 border-solid rounded-sm px-2 py-1 text-lg w-sm"
+            className="border border-slate-800 dark:border-stone-950 border-solid rounded-sm px-2 py-1 text-lg w-sm"
             placeholder="New task"
             ref={inputRef}
             onKeyDown={onKeyDown}
             onChange={onChange}
             value={inputText}
           />
-          <button className="bg-rose-400 py-1 px-5 text-lg rounded-sm ml-3 cursor-pointer hover:bg-rose-300 transition-colors" onClick={addTask}>Add task</button>
+          <button className="bg-rose-400 hover:bg-rose-300 dark:bg-stone-950 dark:hover:bg-stone-800 transition-colors py-1 px-5 text-lg rounded-sm ml-3 cursor-pointer" onClick={addTask}>Add task</button>
         </div>
       </div>
       
-      <div className="my-5 py-4 overflow-y-auto border rounded-2xl border-slate-800 w-2xl min-h-0 flex flex-col gap-3 scrollbar-thumb-rose-400">
+      <div className="dark:bg-stone-900 my-5 py-4 overflow-y-auto border rounded-2xl border-slate-800 dark:border-stone-950 w-2xl min-h-0 flex flex-col gap-3 scrollbar-thumb-rose-400 dark:scrollbar-thumb-stone-950">
         {tasks.length !== 0 ? tasks.map(task => {
           return (
-            <div className="flex flex-row gap-1.5 justify-between w-lg items-center m-auto bg-rose-300 rounded-lg py-2 px-4" key={task.id} >
+            <div className="flex flex-row gap-1.5 justify-between w-lg items-center m-auto bg-rose-300 dark:bg-stone-950 rounded-lg py-2 px-4" key={task.id} >
               <div className={`flex items-center gap-1.5 min-w-0 ${task.done === true ? "opacity-50 first:line-through" : ''}`} onClick={() => handleCheck(task.id)} >
                 <input className="accent-rose-400" type="checkbox" checked={task.done === true} onChange={() => {}} />
                 <label className="text-xl text-left ml-1.5">{task.text}</label>
               </div>
-              <button className="bg-rose-100 py-1 px-3 rounded-lg cursor-pointer hover:bg-rose-200 transition-colors shrink-0" onClick={() => deleteTask(task.id)}>delete task</button>
+              <button className="bg-rose-100 dark:bg-stone-800 py-1 px-3 rounded-lg cursor-pointer hover:bg-rose-200 dark:hover:bg-stone-700 transition-colors shrink-0" onClick={() => deleteTask(task.id)}>delete task</button>
             </div>
           )
         }) : 'try typing your first task above!'}
