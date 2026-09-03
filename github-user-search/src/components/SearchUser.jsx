@@ -50,7 +50,7 @@ export function SearchUser() {
   }
 
   return (
-    <div className="space-y-5 text-center pt-10">
+    <div className="space-y-5 pt-10">
       <h1 className="text-4xl font-bold">Find GitHub User</h1>
       <input type="text" placeholder="Username"
         onChange={setInput}
