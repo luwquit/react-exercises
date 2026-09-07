@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { UserCard } from './UserCard';
 
 export function SearchUser() {
   const [userName, setUserName] = useState();
@@ -16,6 +17,7 @@ export function SearchUser() {
       try {
         const res = await axios.get(`https://api.github.com/users/${userName}`);
         setStatus('Success');
+        console.log(res.data)
 
         let username = res.data.name;
         if (username === null) {
@@ -26,7 +28,7 @@ export function SearchUser() {
       } catch (error) {
         setStatus(error.response?.data?.message)
       }
-    }, 500);
+    }, 670);
     
     return () => {
       clearTimeout(timeoutId);
@@ -58,6 +60,8 @@ export function SearchUser() {
       />
       <p>{status && `Status: ${status}`}</p>
       <p>{name && `User Name: ${name}`}</p>
+      <UserCard />
+      
     </div>
   )
 }
