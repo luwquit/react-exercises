@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { UserCard } from './UserCard';
+import { StarsDecor } from './StarsDecor';
 
 export function SearchUser() {
   const [userName, setUserName] = useState();
@@ -52,16 +53,19 @@ export function SearchUser() {
   }
 
   return (
-    <div className="space-y-5 pt-10">
-      <h1 className="text-4xl font-bold">Find GitHub User</h1>
-      <input type="text" placeholder="Username"
-        onChange={setInput}
-        className="border-slate-50 border-solid border rounded-sm py-1 px-2 w-sm" 
-      />
-      <p>{status && `Status: ${status}`}</p>
-      <p>{name && `User Name: ${name}`}</p>
-      <UserCard />
-      
-    </div>
+    <>
+    <StarsDecor />
+      <div className="space-y-5 pt-10">
+        <h1 className="text-4xl max-xs:text-2xl font-bold">Find GitHub User</h1>
+        <input type="text" placeholder="Username"
+          onChange={setInput}
+          className="border-slate-50 border-solid border rounded-sm py-1 px-2 w-sm max-xs:w-xs" 
+        />
+        <p>{status && `Status: ${status}`}</p>
+        <p>{name && `User Name: ${name}`}</p>
+        <UserCard />
+        
+      </div>
+    </>
   )
 }

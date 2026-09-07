@@ -1,2 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-first-star: first-star 1s steps(2, jump-none) infinite;
+  --animate-second-star: second-star 1s steps(2, jump-none) infinite;
+  --breakpoint-lg: 95rem;
+  --breakpoint-xlg: 61.25rem;
+  --breakpoint-xs: 40rem;
+  
+  @keyframes first-star {
+    from {background-image: url('star-a-1.png')}
+    to {background-image: url('star-a-2.png')}
+  }
+  @keyframes second-star {
+    from {background-image: url('star-b-2.png')}
+    to {background-image: url('star-b-1.png')}
+  }
+}
