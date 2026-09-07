@@ -2,41 +2,33 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { UserCard } from './UserCard';
 import { StarsDecor } from './StarsDecor';
+import { Input } from './Input';
+import formatName from '../utils/formatName';
 
 export function SearchUser() {
-  const [userName, setUserName] = useState();
+  const [searchedUserName, setSearchedUserName] = useState();
   const [status, setStatus] = useState();
   const [name, setName] = useState();
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    let timeoutId;
-    if (!userName) return;
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!searchedUserName) return;
     setStatus('Loading')
-    timeoutId = setTimeout(async () => {
-      try {
-        const res = await axios.get(`https://api.github.com/users/${userName}`);
-        setStatus('Success');
-        console.log(res.data)
 
-        let username = res.data.name;
-        if (username === null) {
-          username = 'Unknown'
-        };
-        setName(username);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`https://api.github.com/users/${searchedUserName}`);
+        setStatus('Success');
+
+        setName(formatName(res.data.name));
+        setData(res.data);
 
       } catch (error) {
         setStatus(error.response?.data?.message)
       }
-    }, 670);
-    
-    return () => {
-      clearTimeout(timeoutId);
-      setStatus('');
-      setName('');
-    };
-  }, [userName])
+    }
+    fetchData();
+  }, [searchedUserName])
 
   useEffect(() => {
     if(!name) {
@@ -48,23 +40,14 @@ export function SearchUser() {
     }
   }, [name])
 
-  const setInput = (event) => {
-    setUserName((event.target.value).trim())
-  }
-
   return (
     <>
-    <StarsDecor />
+      <StarsDecor />
       <div className="space-y-5 pt-10">
         <h1 className="text-4xl max-xs:text-2xl font-bold">Find GitHub User</h1>
-        <input type="text" placeholder="Username"
-          onChange={setInput}
-          className="border-slate-50 border-solid border rounded-sm py-1 px-2 w-sm max-xs:w-xs" 
-        />
+        <Input setSearchedUserName={setSearchedUserName} />
         <p>{status && `Status: ${status}`}</p>
-        <p>{name && `User Name: ${name}`}</p>
         <UserCard />
-        
       </div>
     </>
   )
