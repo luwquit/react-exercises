@@ -47,7 +47,7 @@ export function SearchUser() {
         <h1 className="text-4xl max-xs:text-2xl font-bold">Find GitHub User</h1>
         <Input setSearchedUserName={setSearchedUserName} />
         <p>{status && `Status: ${status}`}</p>
-        <UserCard />
+        <UserCard data={data} />
       </div>
     </>
   )
