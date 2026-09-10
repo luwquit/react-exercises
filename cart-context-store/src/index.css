@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+@theme {
+  --color-main-light: #4A3F4B;
+  --color-details-light: #806C79;
+  --color-text-light: #231815;
+  --color-bg-light: #E6E0D6;
+
+  --font-header: "Mozilla Headline", "sans-serif";
+  --font-display: "Mozilla Text", "sans-serif";
+}
+
+@layer components {
+  .btn {
+    color: var(--color-bg-light);
+    padding-block: calc(var(--spacing) * 2);
+    padding-inline: calc(var(--spacing) * 5);
+    border-radius: var(--radius-lg);
+    transition-property: opacity;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+    cursor: pointer;
+    
+    @media (hover: hover) {
+      &:hover {
+        opacity: 80%;
+      }
+    }
+  }
+}
