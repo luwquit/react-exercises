@@ -14,10 +14,9 @@ export function ToggleTheme() {
 
   return (
     <>
-      <button onClick={handleClick}>
-        Toggle theme
+      <button onClick={handleClick} className="justify-self-end cursor-pointer hover:opacity-80 transition-opacity">
+        <img src="light-theme-icon.png" className="size-10" />
       </button>
-      <p>{theme}</p>
     </>
     
   );
