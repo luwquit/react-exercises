@@ -1,21 +1,30 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 
 export function ToggleTheme() {
   const {theme, setTheme} = useContext(ThemeContext);
 
-  const handleClick = () => {
-    if (theme === "light") {
-      setTheme("dark")
+  useEffect(() => {
+    const root = window.document.documentElement;
+
+    if (theme === "dark") {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
-      setTheme("light")
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
+
+  }, [theme])
+
+  const handleClick = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   }
 
   return (
     <>
       <button onClick={handleClick} className="justify-self-end cursor-pointer hover:opacity-80 transition-opacity">
-        <img src="light-theme-icon.png" className="size-10" />
+        <img src={theme === "light" ? "light-theme-icon.png" : "dark-theme-icon.png"} className="size-10" />
       </button>
     </>
     

@@ -1,13 +1,10 @@
-import { createContext } from "react";
+import { createContext, type Dispatch, type SetStateAction } from "react";
 
 export type Theme = "light" | "dark";
 
 export interface ThemeContextType {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
+  setTheme: Dispatch<SetStateAction<Theme>>;
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>({
-  theme: "light",
-  setTheme: () => {}
-});
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);

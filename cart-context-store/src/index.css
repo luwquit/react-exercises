@@ -1,10 +1,13 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-main-light: #4A3F4B;
   --color-details-light: #806C79;
   --color-text-light: #231815;
   --color-bg-light: #E6E0D6;
+  --color-bg-dark: #33312F;
+  --color-main-dark: #726E68;
 
   --font-header: "Mozilla Headline", "sans-serif";
   --font-display: "Mozilla Text", "sans-serif";
