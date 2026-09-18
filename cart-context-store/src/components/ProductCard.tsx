@@ -1,13 +1,19 @@
-import { useContext } from "react";
-import { ProductContext } from "../contexts/ProductContext";
+import { useContext, useEffect, useState } from "react";
+import { ProductContext, searchedProductsContext, type Product } from "../contexts/ProductContext";
 import formatCurrency from "../assets/formatCurrency";
 
 export function ProductCard() {
   const {products} = useContext(ProductContext);
+  const {searchedProducts} = useContext(searchedProductsContext);
+  const [renderProducts, setRenderProducts] = useState<Product[] | undefined>(undefined);
+
+  useEffect(() => {
+    setRenderProducts(searchedProducts != undefined ? searchedProducts : products)
+  }, [products, searchedProducts])
 
   return (
     <>
-      {products && products.map(product => {
+      {renderProducts && renderProducts.map(product => {
         return (
           <div key={product.id} className="shadow-xl dark:shadow-2xl w-55 pb-4 justify-self-center flex flex-col h-full overflow-hidden">
             <img src={product.image} className="w-full h-55 object-cover" />

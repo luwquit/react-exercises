@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { ThemeContext, type Theme } from "./contexts/ThemeContext.tsx";
-import { ProductContext, type Product } from "./contexts/ProductContext.tsx";
+import { ProductContext, searchedProductsContext, type Product } from "./contexts/ProductContext.tsx";
 import { Header } from "./components/Header.tsx";
 import { SearchBar } from "./components/SearchBar.tsx";
 import { ProductGrid } from "./components/ProductGrid.tsx";
@@ -19,6 +19,7 @@ function App() {
   });
 
   const [products, setProducts] = useState<Product[]>([]);
+  const [searchedProducts, setSearchedProducts] = useState<Product[] | undefined>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +39,11 @@ function App() {
       <ThemeContext.Provider value={{theme, setTheme}}>
         <Header />
       </ThemeContext.Provider>
-      <SearchBar />
       <ProductContext.Provider value={{products}}>
-        <ProductGrid />
+        <searchedProductsContext.Provider value={{searchedProducts, setSearchedProducts}}>
+          <SearchBar />
+          <ProductGrid />
+        </searchedProductsContext.Provider>
       </ProductContext.Provider>
     </>
     
