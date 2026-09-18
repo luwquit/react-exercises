@@ -8,11 +8,13 @@ export interface Product {
   category: string;
 };
 
+export type SearchedProduct = Product[] | 'notFound' | undefined;
+
 interface ProductContextType { products: Product[] };
 
 interface SearchedProductsContextType {
-  searchedProducts: Product[];
-  setSearchedProducts: Dispatch<SetStateAction<Product[]>>
+  searchedProducts: SearchedProduct;
+  setSearchedProducts: Dispatch<SetStateAction<SearchedProduct>>
 }
 
 export const ProductContext = createContext<ProductContextType | undefined>(undefined)

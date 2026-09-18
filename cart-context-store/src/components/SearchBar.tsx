@@ -15,18 +15,14 @@ export function SearchBar() {
 
     if(products && input.trim() !== '') {
       timeoutId = setTimeout(() => {
-        let existedProducts = products.filter((product) => {
+        const existedProducts = products.filter((product) => {
           return (
             product.category.toLowerCase().includes(input.toLowerCase().trim()) ||
             product.name.toLowerCase().includes(input.toLowerCase().trim())
           );
         });
 
-        if(existedProducts.length === 0) {
-          existedProducts = undefined;
-        };
-
-        setSearchedProducts(existedProducts);
+        setSearchedProducts(existedProducts.length > 0 ? existedProducts : 'notFound')
       }, 670)
 
     } else if(input.trim() === '') {
