@@ -1,11 +1,10 @@
 import { ToggleTheme } from "./ToggleTheme";
-import { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
-import { CartContext } from "../contexts/CartContext";
+import { useTheme } from "../contexts/ThemeContext";
+import { useCart } from "../contexts/CartContext";
 
 export function Header() {
-  const { theme } = useContext(ThemeContext);
-  const { cart } = useContext(CartContext);
+  const { theme } = useTheme();
+  const { cart } = useCart();
   return (
     <header className="text-main-light dark:text-bg-light bg-bg-light dark:bg-bg-dark shadow-md grid grid-cols-[60px_1fr_1fr_1fr_60px] items-center py-5 px-50 fixed z-50">
       <img src={theme === "light" ? "./menu-icon-light.png" : "./menu-icon-dark.png"} className="size-10 hover:opacity-70 transition-opacity cursor-pointer" />

@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { ProductContext, searchedProductsContext, type Product } from "../contexts/ProductContext";
-import { CartContext } from "../contexts/CartContext";
+import { useEffect, useState } from "react";
+import { useProduct, useSearchedProduct, type Product } from "../contexts/ProductContext";
+import { useCart } from "../contexts/CartContext";
 import formatCurrency from "../assets/formatCurrency";
 
 export function ProductCard() {
   const NOT_FOUND = 'No items was found';
-  const {products} = useContext(ProductContext);
-  const {searchedProducts} = useContext(searchedProductsContext);
-  const {cartDispatch} = useContext(CartContext);
+  const {products} = useProduct();
+  const {searchedProducts} = useSearchedProduct();
+  const {cartDispatch} = useCart();
   const [renderProducts, setRenderProducts] = useState<Product[] | typeof NOT_FOUND | undefined>([]);
 
   useEffect(() => {

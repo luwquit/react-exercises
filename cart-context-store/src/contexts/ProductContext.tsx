@@ -1,4 +1,4 @@
-import { createContext, type Dispatch, type SetStateAction } from "react";
+import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
 
 export interface Product {
   id: number;
@@ -18,5 +18,24 @@ interface SearchedProductsContextType {
 }
 
 export const ProductContext = createContext<ProductContextType | undefined>(undefined)
-
 export const searchedProductsContext = createContext<SearchedProductsContextType | undefined>(undefined)
+
+export const useProduct = () => {
+  const context = useContext(ProductContext);
+
+  if (context === undefined) {
+    throw new Error('No Provider in Product')
+  };
+
+  return context;
+};
+
+export const useSearchedProduct = () => {
+  const context = useContext(searchedProductsContext);
+
+  if (context === undefined) {
+    throw new Error('No Provider in SearchedProduct')
+  };
+
+  return context;
+};

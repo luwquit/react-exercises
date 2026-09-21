@@ -1,10 +1,10 @@
-import { useState, type ChangeEvent, useContext, useEffect } from "react";
-import { ProductContext, searchedProductsContext } from "../contexts/ProductContext";
+import { useState, type ChangeEvent, useEffect } from "react";
+import { useProduct, useSearchedProduct } from "../contexts/ProductContext";
 
 export function SearchBar() {
   const [input, setInput] = useState<string>('');
-  const {products} = useContext(ProductContext);
-  const {setSearchedProducts} = useContext(searchedProductsContext);
+  const {products} = useProduct();
+  const {setSearchedProducts} = useSearchedProduct();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);

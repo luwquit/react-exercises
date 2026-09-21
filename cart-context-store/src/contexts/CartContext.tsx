@@ -1,4 +1,4 @@
-import { createContext, type Dispatch } from "react";
+import { createContext, useContext, type Dispatch } from "react";
 
 interface AddToCartAction {
   type: 'addToCart';
@@ -36,8 +36,6 @@ export const initialCart = {
   totalQuantity: 0
 }
 
-export const CartContext = createContext<CartContextType>({cart: initialCart, cartDispatch: () => null});
-
 export const cartReducer = (cart: initialStateType, action: AddToCartAction | RemoveFromCartAction) => {
   const {type, payload} = action;
   const {products, totalQuantity} = cart;
@@ -66,3 +64,15 @@ export const cartReducer = (cart: initialStateType, action: AddToCartAction | Re
       return cart;
   }
 };
+
+export const CartContext = createContext<CartContextType>({cart: initialCart, cartDispatch: () => null});
+
+export const useCart = () => {
+  const context = useContext(CartContext);
+
+  if (context === undefined) {
+    throw new Error('No Provider in Cart')
+  }
+
+  return context;
+}

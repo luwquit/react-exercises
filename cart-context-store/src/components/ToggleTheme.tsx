@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useEffect } from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
 export function ToggleTheme() {
-  const {theme, setTheme} = useContext(ThemeContext);
+  const {theme, setTheme} = useTheme();
 
   useEffect(() => {
     const root = window.document.documentElement;
