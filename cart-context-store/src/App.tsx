@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import axios from "axios";
+
 import { ThemeContext, type Theme } from "./contexts/ThemeContext.tsx";
 import { ProductContext, searchedProductsContext, type Product } from "./contexts/ProductContext.tsx";
+import { CartContext, cartReducer, initialCart } from "./contexts/CartContext.tsx";
 import { Header } from "./components/Header.tsx";
 import { SearchBar } from "./components/SearchBar.tsx";
 import { ProductGrid } from "./components/ProductGrid.tsx";
 
 function App() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [searchedProducts, setSearchedProducts] = useState<Product[] | undefined>(undefined);
   const [theme, setTheme] = useState<Theme>(() => {
     if(typeof window !== "undefined") {
         const savedTheme = localStorage.getItem("theme");
@@ -17,9 +21,8 @@ function App() {
       }
       return "light";
   });
-
-  const [products, setProducts] = useState<Product[]>([]);
-  const [searchedProducts, setSearchedProducts] = useState<Product[] | undefined>(undefined);
+  const [cart, cartDispatch] = useReducer(cartReducer, JSON.parse(localStorage.getItem('cart')) || initialCart);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,21 +33,27 @@ function App() {
         console.log(error)
       };
     };
-
     fetchData();
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart]);
+
+
   return (
     <>
-      <ThemeContext.Provider value={{theme, setTheme}}>
-        <Header />
-      </ThemeContext.Provider>
-      <ProductContext.Provider value={{products}}>
-        <searchedProductsContext.Provider value={{searchedProducts, setSearchedProducts}}>
-          <SearchBar />
-          <ProductGrid />
-        </searchedProductsContext.Provider>
-      </ProductContext.Provider>
+      <CartContext.Provider value={{cart, cartDispatch}}>
+        <ThemeContext.Provider value={{theme, setTheme}}>
+          <Header />
+        </ThemeContext.Provider>
+        <ProductContext.Provider value={{products}}>
+          <searchedProductsContext.Provider value={{searchedProducts, setSearchedProducts}}>
+            <SearchBar />
+            <ProductGrid />
+          </searchedProductsContext.Provider>
+        </ProductContext.Provider>
+      </CartContext.Provider>
     </>
     
   )

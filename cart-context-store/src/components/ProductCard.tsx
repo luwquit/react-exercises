@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { ProductContext, searchedProductsContext, type Product } from "../contexts/ProductContext";
+import { CartContext } from "../contexts/CartContext";
 import formatCurrency from "../assets/formatCurrency";
 
 export function ProductCard() {
   const NOT_FOUND = 'No items was found';
   const {products} = useContext(ProductContext);
   const {searchedProducts} = useContext(searchedProductsContext);
+  const {cartDispatch} = useContext(CartContext);
   const [renderProducts, setRenderProducts] = useState<Product[] | typeof NOT_FOUND | undefined>([]);
 
   useEffect(() => {
@@ -18,7 +20,6 @@ export function ProductCard() {
     } else {
       setRenderProducts(searchedProducts);
     }
-    // setRenderProducts(searchedProducts != undefined ? searchedProducts : products)
   }, [products, searchedProducts])
 
   return (
@@ -34,7 +35,10 @@ export function ProductCard() {
                   <h3 className="text-xl">{product.name}</h3>
                   <h3 className="text-2xl font-bold pt-1 mt-auto">{formatCurrency(product.priceCents)}</h3>
                 </div>
-                <button className="btn block bg-main-light dark:bg-bg-light dark:text-bg-dark dark:font-semibold m-auto">Add to Cart</button>
+                <button className="btn block bg-main-light dark:bg-bg-light dark:text-bg-dark dark:font-semibold m-auto"
+                  onClick={() => {cartDispatch({type: "addToCart", payload: {id: product.id, quantity: 1}})}}>
+                  Add to Cart
+                </button>
               </div>
             )
           })
