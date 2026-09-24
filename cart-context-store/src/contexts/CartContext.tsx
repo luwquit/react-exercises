@@ -16,9 +16,18 @@ interface RemoveFromCartAction {
   }
 }
 
+interface EditQuantityAction {
+  type: 'editQuantity';
+  payload: {
+    id: number;
+    quantity: number;
+    newQuantity: number;
+  }
+}
+
 interface CartContextType {
   cart: initialStateType;
-  cartDispatch: Dispatch<AddToCartAction | RemoveFromCartAction>
+  cartDispatch: Dispatch<AddToCartAction | RemoveFromCartAction | EditQuantityAction>
 };
 
 interface CartItem {
@@ -36,7 +45,7 @@ export const initialCart = {
   totalQuantity: 0
 }
 
-export const cartReducer = (cart: initialStateType, action: AddToCartAction | RemoveFromCartAction) => {
+export const cartReducer = (cart: initialStateType, action: AddToCartAction | RemoveFromCartAction | EditQuantityAction) => {
   const {type, payload} = action;
   const {products, totalQuantity} = cart;
 
@@ -59,6 +68,24 @@ export const cartReducer = (cart: initialStateType, action: AddToCartAction | Re
         ],
         totalQuantity: totalQuantity - payload.quantity
       }
+
+    case 'editQuantity': {
+      let allQuantity = 0;
+
+      const newProducts = products.map(product => {
+        if (product.id === payload.id) {
+          return {...product, quantity: payload.newQuantity}
+        } else {
+          return product
+        }
+      });
+      newProducts.map(product => allQuantity += product.quantity)
+
+      return {
+        products: newProducts,
+        totalQuantity: allQuantity
+      }
+    }
       
     default:
       return cart;
