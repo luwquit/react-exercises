@@ -6,7 +6,7 @@ export function CartPage() {
   return (
     <>
       <Header />
-      <div className="pt-28 px-50 grid grid-cols-2">
+      <div className="pt-28 px-50 grid grid-cols-2 relative">
         <CartItemsGrid />
         <PaymentSummary />
       </div>
