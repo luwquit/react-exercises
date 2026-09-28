@@ -20,7 +20,6 @@ interface EditQuantityAction {
   type: 'editQuantity';
   payload: {
     id: number;
-    quantity: number;
     newQuantity: number;
   }
 }
@@ -30,7 +29,7 @@ interface CartContextType {
   cartDispatch: Dispatch<AddToCartAction | RemoveFromCartAction | EditQuantityAction>
 };
 
-interface CartItem {
+export interface CartItem {
   id: number;
   quantity: number;
 };
