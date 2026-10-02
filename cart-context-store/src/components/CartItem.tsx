@@ -15,16 +15,16 @@ export function CartItem() {
     <>
       {cartDetails && cartDetails.map((cartItem) => {
         return (
-          <div key={cartItem.id} className="rounded-xl grid grid-cols-2 gap-x-5 max-w-130 text-text-light p-3 shadow-xl dark:shadow-2xl">
+          <div key={cartItem.id} className="rounded-xl grid grid-cols-2 gap-x-5 max-w-130 text-text-light dark:text-main-dark p-3 shadow-xl dark:shadow-2xl">
             <img src={cartItem.product.image} className="w-60" />
             <div className="flex flex-col justify-between py-5">
               <div className="flex flex-col">
-                <h2 className="font-semibold text-2xl text-main-light">{cartItem.product.name}</h2>
+                <h2 className="font-semibold text-2xl text-main-light dark:text-bg-light">{cartItem.product.name}</h2>
                 <h3 className="font-bold text-2xl">{formatCurrency(cartItem.product.priceCents)}</h3>
                 <Quantity cartItem={cartItem} />
               </div>
               <div>
-                <button className="btn bg-bg-light text-main-light border font-medium"
+                <button className="btn bg-bg-light dark:bg-bg-dark text-main-light dark:text-bg-light border font-medium"
                   onClick={() => {handleRemoveItem(cartItem.id, cartItem.quantity)}}
                 >
                   Remove from cart

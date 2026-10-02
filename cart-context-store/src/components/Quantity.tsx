@@ -1,7 +1,9 @@
 import { useState, type ChangeEvent, type KeyboardEvent } from "react";
 import { useCart, type CartItem } from "../contexts/CartContext";
+import { useTheme } from "../contexts/ThemeContext";
 
 export function Quantity({cartItem}) {
+  const {theme} = useTheme();
   const [editingId, setEditingId] = useState<number>(null);
   const [editInput, setEditInput] = useState<string>('');
   const {cartDispatch} = useCart();
@@ -44,12 +46,12 @@ export function Quantity({cartItem}) {
         }</span>
       </h4>
       {isEditing ? 
-        <button className="rounded-sm text-bg-light py-1 px-2 bg-main-light text-sm" onClick={() => {handleSave(cartItem.id)}}>
+        <button className="rounded-sm text-bg-light py-1 px-2 bg-main-light dark:bg-main-dark text-sm" onClick={() => {handleSave(cartItem.id)}}>
           Save
         </button> 
         : 
         <button className="cursor-pointer hover:opacity-80 transition-opacity" onClick={() => (handleEdit(cartItem))}>
-          <img src="pencil-icon-light.png" className="w-5" />
+          <img src={theme === "light" ? "pencil-icon-light.png" : "pencil-icon-dark.png"} className="w-5" />
         </button>
       }
     </div>

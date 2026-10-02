@@ -19,8 +19,8 @@ export function PaymentSummary() {
   const TOTAL = subtotal + vat + deliveryFeeCents;
   
   return (
-    <section className="text-main-light w-200 px-20 py-15 rounded-xl shadow-xl dark:shadow-2xl flex flex-col fixed top-1/2 right-50 -translate-y-1/2">
-      <h2 className="text-4xl font-bold text-center text-text-light pb-10">Payment Summary</h2>
+    <section className="text-main-light dark:text-main-dark w-200 px-20 py-15 rounded-xl shadow-xl dark:shadow-2xl flex flex-col fixed top-1/2 right-50 -translate-y-1/2">
+      <h2 className="text-4xl font-bold text-center text-text-light dark:text-bg-light pb-10">Payment Summary</h2>
       <div className="text-xl font-medium space-y-2">
         <span className="flex justify-between">
           <h3>Subtotal (excluding VAT)</h3>
@@ -37,7 +37,7 @@ export function PaymentSummary() {
           <h4 className="font-bold">{formatCurrency(deliveryFeeCents)}</h4>
         </span>
 
-        <span className="flex justify-between text-2xl font-bold text-text-light mt-10">
+        <span className="flex justify-between text-2xl font-bold text-text-light dark:text-bg-light mt-10">
           <h3>Total (incl. VAT & delivery)</h3>
           <h4>{formatCurrency(TOTAL)}</h4>
         </span>
