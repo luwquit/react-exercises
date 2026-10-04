@@ -36,17 +36,17 @@ export function Quantity({cartItem}) {
   }
 
   return(
-    <div className="flex gap-x-2">
-      <h4 className="font-medium text-xl">Quantity: 
+    <div className="flex gap-x-2 items-center">
+      <h4 className="font-medium 2xl:text-xl xl:text-lg lg:text-md text-sm">Quantity: 
         <span className="ml-1">{!isEditing 
           ? cartItem.quantity 
           : <input type="number" value={editInput} onChange={handleInput} min={1} max={999} 
-            className="border border-main-light rounded-sm w-14 text-lg px-0.5 focus:outline-none"
+            className="border border-main-light rounded-sm 2xl:w-14 md:w-9 w-8 px-0.5 focus:outline-none"
             onKeyDown={(event) => {onKeyDown(event, cartItem.id)}} />
         }</span>
       </h4>
       {isEditing ? 
-        <button className="rounded-sm text-bg-light py-1 px-2 bg-main-light dark:bg-main-dark text-sm" onClick={() => {handleSave(cartItem.id)}}>
+        <button className="rounded-sm text-bg-light py-1 px-2 bg-main-light dark:bg-main-dark lg:text-sm text-xs" onClick={() => {handleSave(cartItem.id)}}>
           Save
         </button> 
         : 

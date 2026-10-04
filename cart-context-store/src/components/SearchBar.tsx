@@ -35,8 +35,8 @@ export function SearchBar() {
   }, [input, products, setSearchedProducts])
 
   return (
-    <section className="pt-28 pb-10 m-auto sticky top-0 bg-bg-light/50 dark:bg-bg-dark/50 backdrop-blur-sm">
-      <div className="relative w-4xl m-auto shadow-lg">
+    <section className="pt-28 pb-10 m-auto w-full sticky top-0 bg-bg-light/50 dark:bg-bg-dark/50 backdrop-blur-sm">
+      <div className="relative xl:w-4xl lg:w-3xl md:w-xl w-sm m-auto shadow-lg">
         <img src="search-icon-light.png" className="absolute size-6 left-2 top-1/2 -translate-y-1/2" />
         <input placeholder="Search" 
           className="
