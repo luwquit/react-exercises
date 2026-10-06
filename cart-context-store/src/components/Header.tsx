@@ -16,7 +16,7 @@ export function Header() {
       </div>
       
       <nav className="w-fit justify-self-center items-center">
-        <ul className="xl:text-xl lg:text-lg md:text-md text-sm font-semibold hidden md:flex xl:gap-x-10 gap-x-3 whitespace-nowrap">
+        <ul className="xl:text-xl lg:text-lg md:text-md text-sm font-semibold hidden md:flex xl:gap-x-10 gap-x-3 whitespace-nowrap mt-1">
           <li className="shrink-0 hover:opacity-70 transition-opacity cursor-pointer relative inline-block group">
             <a>About Us 
               <span className="absolute left-0 bottom-0 w-full h-0.5 bg-current
